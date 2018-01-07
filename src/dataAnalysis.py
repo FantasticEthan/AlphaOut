@@ -4,6 +4,33 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus']=False
 
+class dataset(object):
+    def __init__(self,feature,label):
+        self.index_in_epoch = 0
+        self.feature = feature
+        self.label = label
+        self.example_nums = len(label)
+        self.epochs_completed = 0
+
+    def next_batch(self,batch_size):
+        start = self.index_in_epoch
+        self.index_in_epoch += batch_size
+        if self.index_in_epoch > self.example_nums:
+            # Finished epoch
+            self.epochs_completed += 1
+            # Shuffle the data
+            perm = np.arange(self.example_nums)
+            np.random.shuffle(perm)
+            self.feature = self.feature[perm]
+            self.label = self.label[perm]
+            # Start next epoch
+            start = 0
+            self.index_in_epoch = batch_size
+            assert batch_size <= self.example_nums
+        end = self.index_in_epoch
+        return np.array(self.feature[start:end]), np.array(self.label[start:end])
+
+
 
 def load_dataset(path):
     """
@@ -66,14 +93,14 @@ def get_corr(data,tmp_path="../tmp/"):
     data_corr_blood_glucose.to_csv(tmp_path+"data_corr_blood_glucose.csv")
     return data_corr,data_corr_blood_glucose
 
+if __name__=='__main__':
+    filepath = "../data/d_train_20180102.csv"
+    data = load_dataset(filepath)
+    datalength= len(data)
+    data = data.reset_index(drop=True)
+    print(("总共有 {} 条 数据").format(datalength))
+    # create_Histgram(data)
+    data_numerical = get_numerical_columns(data)
+    data_corr,data_corr_blood_glucose = get_corr(data)
 
-filepath = "../data/d_train_20180102.csv"
-data = load_dataset(filepath)
-datalength= len(data)
-data = data.reset_index(drop=True)
-print(("总共有 {} 条 数据").format(datalength))
-# create_Histgram(data)
-data_numerical = get_numerical_columns(data)
-data_corr,data_corr_blood_glucose = get_corr(data)
 
-# print(data_corr_blood_glucose)
