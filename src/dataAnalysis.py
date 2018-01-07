@@ -4,34 +4,6 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus']=False
 
-class dataset(object):
-    def __init__(self,feature,label):
-        self.index_in_epoch = 0
-        self.feature = feature
-        self.label = label
-        self.example_nums = len(label)
-        self.epochs_completed = 0
-
-    def next_batch(self,batch_size):
-        start = self.index_in_epoch
-        self.index_in_epoch += batch_size
-        if self.index_in_epoch > self.example_nums:
-            # Finished epoch
-            self.epochs_completed += 1
-            # Shuffle the data
-            perm = np.arange(self.example_nums)
-            np.random.shuffle(perm)
-            self.feature = self.feature[perm]
-            self.label = self.label[perm]
-            # Start next epoch
-            start = 0
-            self.index_in_epoch = batch_size
-            assert batch_size <= self.example_nums
-        end = self.index_in_epoch
-        return np.array(self.feature[start:end]), np.array(self.label[start:end])
-
-
-
 def load_dataset(path):
     """
     string  :param path: the path to load
