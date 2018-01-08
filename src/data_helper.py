@@ -3,36 +3,49 @@ import numpy as np
 
 
 class dataset(object):
-    def __init__(self,path):
+    def __init__(self,path,train=True):
 
         self.data = pd.read_csv(path, sep=',', index_col='id')
 
-        def generate_matrix(data):
+        def preprocess(data):
             sex_dict = {"男": 1, "女": 0}
             data = data[data.columns.drop('体检日期')].replace(sex_dict)
             # describe = pd.read_csv("../tmp/describe.csv",index_col=[0])
-            #fill the nan with dataframe.mean()
+            # fill the nan with dataframe.mean()
             data.fillna(round(data.mean(), 2), inplace=True)
-            #reset
+            # reset
             data = data.reset_index(drop=True)
             num_data = len(data)
+            return data
+        self.preprocess_data = preprocess(self.data)
 
-            X_matrix = data.iloc[:, :-1].values.astype(float)
-            y_matrix = data.iloc[:, -1].values.astype(float)
-
+        def generate_matrix(data,train):
+            if train ==1:
+                X_matrix = data.iloc[:, :-1].values.astype(float)
+                y_matrix = data.iloc[:, -1].values.astype(float)
+            else:
+                X_matrix = data.iloc[:, :].values.astype(float)
+                y_matrix = np.array((len(data),1))
             return X_matrix,y_matrix
 
-        self.feature,self.label = generate_matrix(self.data)
-        self.index_in_epoch = 0
-        self.example_nums = len(self.label)
-        self.epochs_completed = 0
+        if train==1:
+            self.feature,self.label = generate_matrix(self.preprocess_data,train)
+            self.index_in_epoch = 0
+            self.example_nums = len(self.label)
+            self.epochs_completed = 0
+        else:
+            self.feature,self.label = generate_matrix(self.preprocess_data,train)
+            self.index_in_epoch = 0
+            self.example_nums = len(self.label)
+            self.epochs_completed = 0
 
     def normalization0_1(self):
         """
         :return: normalization data to (0,1)
         """
-        self.norm_feature = (self.feature - self.feature.min()) / (self.feature.max() - self.feature.min())
-        self.norm_label = (self.label - self.label.min()) / (self.label.max() - self.label.min())
+        self.norm_data = (self.preprocess_data - self.preprocess_data.min()) / (self.preprocess_data.max() - self.preprocess_data.min())
+        self.norm_feature = self.norm_data.iloc[:, :-1].values.astype(float)
+        self.norm_label = self.norm_data.iloc[:, -1].values.astype(float)
         return self.norm_feature,self.norm_label
 
     def Z_score(self):
@@ -60,5 +73,4 @@ class dataset(object):
             assert batch_size <= self.example_nums
         end = self.index_in_epoch
         return np.array(self.feature[start:end]), np.array(self.label[start:end])
-
 

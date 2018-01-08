@@ -9,10 +9,12 @@ from sklearn.linear_model import LogisticRegression
 
 train_data = data_helper.dataset("../tmp/train.csv")
 dev_data = data_helper.dataset("../tmp/dev.csv")
+test_data = data_helper.dataset("../tmp/localtest.csv")
+# y_train_temp = train_data.label
 
-# X_train = train_data.feature
-X_train,y_train = train_data.normalization0_1()
-X_dev,y_dev = dev_data.normalization0_1()
+X_train,y_train = train_data.feature,train_data.label
+X_dev,y_dev = dev_data.feature,dev_data.label
+X_test,y_test = test_data.feature,test_data.label
 
 num_data = train_data.example_nums
 
@@ -28,7 +30,10 @@ train_mseError = sum((train_predict - y_train)**2)/(2*len(X_train))
 dev_predict = lin_reg_2.predict(poly_reg.fit_transform(X_dev))
 dev_mseError = sum((dev_predict - y_dev)**2)/(2*len(X_dev))
 
-print(("训练误差为{}..验证误差为{}..本地测试误差为...").format(train_mseError,dev_mseError))
+test_predict = lin_reg_2.predict(poly_reg.fit_transform(X_test))
+test_mseError = sum((test_predict - y_test)**2)/(2*len(X_test))
+
+print(("训练误差为{}..验证误差为{}..本地测试误差为{}...").format(train_mseError,dev_mseError,test_mseError))
 
 plt.scatter(range(num_data), y_train, color = 'red')
 plt.plot(range(num_data), lin_reg_2.predict(poly_reg.fit_transform(X_train)), color = 'blue')

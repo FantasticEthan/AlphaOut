@@ -2,9 +2,12 @@ import pandas as pd
 from dataAnalysis import load_dataset
 from sklearn.cross_validation import train_test_split
 
-filepath = "../data/d_train_20180102.csv"
+filepath = "../data/d_test_A_20180102.csv"
 tmppath  = "../tmp/"
 data = load_dataset(filepath)
+
+# data.to_csv(tmppath+'onlinetest.csv')
+# exit()
 datalength= len(data)
 df_male = data[data["性别"]=="男"]
 df_female = data[data["性别"]=="女"]
@@ -15,9 +18,10 @@ print(("男性测试者有{}个，女性测试者有{}个").format(num_male,num_
 train_data = data.ix[:,:-1]
 train_target = data.ix[:,["血糖"]]
 # print(train_data)
-X_train,X_test, y_train, y_test = train_test_split(train_data,train_target,test_size=0.3, random_state=27)
+X_train,X_test, y_train, y_test = train_test_split(train_data,train_target,test_size=0.2, random_state=27)
 
-X_Dev,X_test, y_Dev, y_test = train_test_split(X_test,y_test,test_size=0.33, random_state=27)
+(X_train.join(y_train)).to_csv(tmppath+'train_all.csv')
+X_train,X_Dev, y_train,y_Dev = train_test_split(X_train,y_train,test_size=0.1, random_state=64)
 
 X_train_male = X_train[X_train["性别"]=="男"]
 X_train_female = X_train[X_train["性别"]=="女"]
