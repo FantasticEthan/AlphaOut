@@ -9,8 +9,17 @@ import xgboost as xgb
 from xgboost import XGBClassifier
 # from collections import Counter
 
-train_data = data_helper.dataset("../tmp/train_all.csv")
-test_data = data_helper.dataset("../tmp/localtest.csv")
+def evalerror(preds, dtrain):
+    labels = dtrain.get_label()
+
+    error = sum((preds-labels)**2)/(2*len(preds))
+    # return 'error', float(sum(labels != (preds > 0.0))) / len(labels)
+    return 'mse', error
+
+
+train_data = data_helper.dataset("../tmp/addFeature1_train_all.csv")
+test_data = data_helper.dataset("../tmp/addFeature1_localtest.csv")
+
 
 X_train,y_train = train_data.feature,train_data.label
 X_test,y_test = test_data.feature,test_data.label
@@ -36,17 +45,18 @@ params = {
 
 #------------------------
 #-----迭代次数-------------
-num_boost_round = 500
+num_boost_round = 472
 
 model = xgb.train(
     params,
     dtrain,
     num_boost_round=num_boost_round,
     evals=[(dtest, 'eval'), (dtrain, 'train')],
-    early_stopping_rounds=10
+    feval=evalerror,
+    early_stopping_rounds=50
 )
 
-print("Best rmse: {:.2f} with {} rounds".format(
+print("Best mse: {:.2f} with {} rounds".format(
     model.best_score,
     model.best_iteration + 1))
 
@@ -57,11 +67,12 @@ cv_results = xgb.cv(
     num_boost_round=num_boost_round,
     seed=42,
     nfold=5,
+    feval=evalerror,
     early_stopping_rounds=10
 )
 # print(cv_results)
 # exit()
-print("min is ...",cv_results['test-rmse-mean'].min())
+print("min is ...",cv_results['test-mse-mean'].min())
 
 select_params = []
 #树结构 调参过程
@@ -73,7 +84,7 @@ gridsearch_params = [
 
 # Define initial best params and MAE
 # min_mae = float("Inf")
-min_rmse = float("Inf")
+min_mse = float("Inf")
 best_params = None
 for max_depth, min_child_weight in gridsearch_params:
     print("CV with max_depth={}, min_child_weight={}".format(
@@ -91,17 +102,18 @@ for max_depth, min_child_weight in gridsearch_params:
         num_boost_round=num_boost_round,
         seed=42,
         nfold=5,
+        feval=evalerror,
         early_stopping_rounds=10
     )
 
-    mean_rmse = cv_results['test-rmse-mean'].min()
-    boost_rounds = cv_results['test-rmse-mean'].argmin()
-    print("\trmse {} for {} rounds".format(mean_rmse, boost_rounds))
-    if mean_rmse < min_rmse:
-        min_rmse = mean_rmse
+    mean_mse = cv_results['test-mse-mean'].min()
+    boost_rounds = cv_results['test-mse-mean'].argmin()
+    print("\tmse {} for {} rounds".format(mean_mse, boost_rounds))
+    if mean_mse < min_mse:
+        min_mse = mean_mse
         best_params = (max_depth, min_child_weight)
 
-print("Best params: {}, {}, rmse: {}".format(best_params[0], best_params[1], min_rmse))
+print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
 
 select_params.append(best_params)
 #subsample colsample 调参过程
@@ -111,7 +123,7 @@ gridsearch_params = [
     for subsample in [i / 10. for i in range(7, 11)]
     for colsample in [i / 10. for i in range(7, 11)]
     ]
-min_rmse = float("Inf")
+min_mse = float("Inf")
 best_params = None
 
 # We start by the largest values and go down to the smallest
@@ -131,24 +143,25 @@ for subsample, colsample in reversed(gridsearch_params):
         num_boost_round=num_boost_round,
         seed=42,
         nfold=5,
+        feval=evalerror,
         early_stopping_rounds=10
     )
 
     # Update best score
-    mean_rmse = cv_results['test-rmse-mean'].min()
-    boost_rounds = cv_results['test-rmse-mean'].argmin()
-    print("\trmse {} for {} rounds".format(mean_rmse, boost_rounds))
-    if mean_rmse < min_rmse:
-        min_rmse = mean_rmse
+    mean_mse = cv_results['test-mse-mean'].min()
+    boost_rounds = cv_results['test-mse-mean'].argmin()
+    print("\tmse {} for {} rounds".format(mean_mse, boost_rounds))
+    if mean_mse < min_mse:
+        min_mse = mean_mse
         best_params = (subsample, colsample)
 
-print("Best params: {}, {}, rmse: {}".format(best_params[0], best_params[1], min_rmse))
+print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
 
 select_params.append(best_params)
 #Eta 调参过程
 # %
 # This can take some time…
-min_rmse = float("Inf")
+min_mse = float("Inf")
 best_params = None
 
 for eta in [.3, .2, .1, .05, .01, .005]:
@@ -165,18 +178,19 @@ for eta in [.3, .2, .1, .05, .01, .005]:
         num_boost_round=num_boost_round,
         seed=42,
         nfold=5,
+        feval=evalerror,
         early_stopping_rounds=10
     )
 
     # Update best score
-    mean_rmse = cv_results['test-rmse-mean'].min()
-    boost_rounds = cv_results['test-rmse-mean'].argmin()
-    print("\trmse {} for {} rounds\n".format(mean_rmse, boost_rounds))
-    if mean_rmse < min_rmse:
-        min_rmse = mean_rmse
+    mean_mse = cv_results['test-mse-mean'].min()
+    boost_rounds = cv_results['test-mse-mean'].argmin()
+    print("\tmse {} for {} rounds\n".format(mean_mse, boost_rounds))
+    if mean_mse < min_mse:
+        min_mse = mean_mse
         best_params = eta
 
-print("Best params: {}, rmse: {}".format(best_params, min_rmse))
+print("Best params: {}, mse: {}".format(best_params, min_mse))
 
 select_params.append(best_params)
 
@@ -203,7 +217,8 @@ model_best = xgb.train(
     dtrain,
     num_boost_round=num_boost_round,
     evals=[(dtest, 'eval'), (dtrain, 'train')],
-    early_stopping_rounds=10
+    feval=evalerror,
+    early_stopping_rounds=50
 )
 
 model_best.save_model("../model/"+str(select_params)+".model")

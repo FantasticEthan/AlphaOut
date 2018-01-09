@@ -9,7 +9,7 @@ class dataset(object):
 
         def preprocess(data):
             sex_dict = {"男": 1, "女": 0}
-            data = data[data.columns.drop('体检日期')].replace(sex_dict)
+            data = data[data.columns.drop(['体检日期','年龄'])].replace(sex_dict)
             # describe = pd.read_csv("../tmp/describe.csv",index_col=[0])
             # fill the nan with dataframe.mean()
             data.fillna(round(data.mean(), 2), inplace=True)

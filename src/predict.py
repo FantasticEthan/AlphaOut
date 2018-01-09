@@ -4,9 +4,9 @@ import numpy as np
 import data_helper
 import matplotlib.pyplot as plt
 
-modelpath = "../model/[(4, 7), (0.8, 0.7), 0.01].model"
+modelpath = "../model/[(4, 6), (0.9, 1.0), 0.01].model"
 
-data = data_helper.dataset("../tmp/onlinetest.csv",train=False)
+data = data_helper.dataset("../tmp/addFeature1_onlinetest.csv",train=False)
 data_feature = data.feature
 
 data_matrix = xgb.DMatrix(data_feature)
@@ -20,4 +20,4 @@ dfpred = pd.DataFrame(ypred,columns=["血糖"])
 print(dfpred.describe())
 dfpred.plot()
 plt.show()
-dfpred.to_csv("submission_2.csv",header=None,index=None)
+dfpred.to_csv("submission.csv",header=None,index=None)
