@@ -1,5 +1,6 @@
 import pandas as pd
 import data_helper
+import numpy as np
 import matplotlib.pyplot as plt
 
 train_data = data_helper.dataset("../tmp/train_all.csv")
@@ -26,11 +27,42 @@ outlier = data[((box_outlier.notnull()) & (std_outlier.notnull()))
            | ((box_outlier.notnull()) & (percent_outlier.notnull()) & (std_outlier.notnull()) )
       ]
 
-print((outlier[outlier['*天门冬氨酸氨基转换酶'].notnull()]))
-# print(outlier[outlier.notnull()])
-# print(std_outlier.isnull())
-# for i in data.columns:
-#     if data[[i]]
+# shape_ratio = (outlier.mean()-data.mean())/(outlier.std()-data.std()).abs()
+Q1_outlier = outlier.quantile(0.25)
+Q3_outlier = outlier.quantile(0.75)
+IQR_outlier = Q3_outlier - Q1_outlier
+outlier_outlier_step = 1.5 * IQR_outlier
+
+box_outlier_outlier = outlier[(outlier < Q1_outlier - outlier_outlier_step) |
+                      (outlier > Q3_outlier + outlier_outlier_step)]
+
+outlier_baseline = box_outlier_outlier.min()
+
+for i in data.columns:
+    change = lambda x: outlier_baseline[i] if x>outlier_baseline[i] and x!='NaN' else x
+    data[i] = data[i].map(change)
+
+
+outlier_baseline.to_csv("../tmp/outlier_baseline.csv")
+
+# print(data[data==float('inf')])
+exit()
+
+for i in box_outlier_outlier.columns:
+    print(i)
+    print(len(box_outlier_outlier[box_outlier_outlier[i].notnull()]))
+exit()
+
+
+df_importance_describe = pd.DataFrame()
+for i in outlier.columns:
+    dftemp = ((outlier[outlier[i].notnull()]['血糖']).describe())
+    print(i)
+    df_importance_describe[i] = dftemp
+
+df_importance_describe.to_csv("../tmp/blood_value_dfsick_all.csv")
+    # print(df_importance_describe)
+# dfsick.to_csv("../tmp/dfsick_all.csv")
 
 
 # outlier_row.to_csv("../tmp/boxplot.csv")

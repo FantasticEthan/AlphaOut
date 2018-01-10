@@ -11,24 +11,26 @@ from xgboost import XGBClassifier
 
 def evalerror(preds, dtrain):
     labels = dtrain.get_label()
-
     error = sum((preds-labels)**2)/(2*len(preds))
     # return 'error', float(sum(labels != (preds > 0.0))) / len(labels)
     return 'mse', error
 
 
-train_data = data_helper.dataset("../tmp/addFeature1_train_all.csv")
-test_data = data_helper.dataset("../tmp/addFeature1_localtest.csv")
+dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/localtest.csv",train=1)
+dataset.trans_datetime2weather()
+dataset.del_outlier()
+dataset.fill_nan()
+dataset.generate_arithmetic()
+dataset.category_sex()
 
+# train = dataset.train.values
+# test = dataset.test.values
 
-X_train,y_train = train_data.feature,train_data.label
-X_test,y_test = test_data.feature,test_data.label
+X_train,y_train = dataset.train.values,dataset.train_label.values
+X_test,y_test = dataset.test.values,dataset.test_label.values
 #split test and train
-X_matrix, y_matrix = X_train, y_train
-testX_matrix, testy_matrix = X_test, y_test
-
-dtrain = xgb.DMatrix(X_matrix, label=y_matrix)
-dtest = xgb.DMatrix(testX_matrix, label=testy_matrix)
+dtrain = xgb.DMatrix(X_train, label=y_train)
+dtest = xgb.DMatrix(X_test, label=y_test)
 
 #train part
 params = {
@@ -38,6 +40,7 @@ params = {
     'eta': 0.3,
     'subsample': 0.8,
     'colsample_bytree': 0.9,
+    'lambda':1,
     # Other parameters
     'silent':1,
     'objective':'reg:linear',
@@ -45,7 +48,7 @@ params = {
 
 #------------------------
 #-----迭代次数-------------
-num_boost_round = 472
+num_boost_round = 50
 
 model = xgb.train(
     params,
@@ -78,8 +81,8 @@ select_params = []
 #树结构 调参过程
 gridsearch_params = [
     (max_depth, min_child_weight)
-    for max_depth in range(4, 12)
-    for min_child_weight in range(5, 8)
+    for max_depth in range(3, 12)
+    for min_child_weight in range(1, 10)
     ]
 
 # Define initial best params and MAE
@@ -120,8 +123,8 @@ select_params.append(best_params)
 #——————————————————————————————————————————————
 gridsearch_params = [
     (subsample, colsample)
-    for subsample in [i / 10. for i in range(7, 11)]
-    for colsample in [i / 10. for i in range(7, 11)]
+    for subsample in [i / 10. for i in range(3, 11)]
+    for colsample in [i / 10. for i in range(3, 11)]
     ]
 min_mse = float("Inf")
 best_params = None
@@ -158,6 +161,45 @@ for subsample, colsample in reversed(gridsearch_params):
 print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
 
 select_params.append(best_params)
+
+#lambda 调参过程
+# %
+# This can take some time…
+min_mse = float("Inf")
+best_params = None
+
+for reg_lambda in range(1,20):
+    print("CV with reg_lambda={}".format(reg_lambda))
+
+    # We update our parameters
+    params['lambda'] = reg_lambda
+
+    # Run and time CV
+    # %time
+    cv_results = xgb.cv(
+        params,
+        dtrain,
+        num_boost_round=num_boost_round,
+        seed=42,
+        nfold=5,
+        feval=evalerror,
+        early_stopping_rounds=10
+    )
+
+    # Update best score
+    mean_mse = cv_results['test-mse-mean'].min()
+    boost_rounds = cv_results['test-mse-mean'].argmin()
+    print("\tmse {} for {} rounds\n".format(mean_mse, boost_rounds))
+    if mean_mse < min_mse:
+        min_mse = mean_mse
+        best_params = reg_lambda
+
+print("Best params: {}, mse: {}".format(best_params, min_mse))
+
+select_params.append(best_params)
+
+print(select_params)
+
 #Eta 调参过程
 # %
 # This can take some time…
@@ -198,7 +240,8 @@ print(select_params)
 
 max_depth_param,min_child_param = select_params[0][0],select_params[0][1]
 subsample_param,colsample_param = select_params[1][0],select_params[1][1]
-eta_param = select_params[2]
+reg_lambda_param = select_params[2]
+eta_param = select_params[3]
 
 params_best = {
     # Parameters that we are going to tune.
