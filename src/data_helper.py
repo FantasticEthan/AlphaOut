@@ -4,13 +4,15 @@ from itertools import combinations
 import math
 
 class dataset(object):
-    def __init__(self,trainPath,testPath,train=True):
+    def __init__(self,trainPath,testPath,trainable=True):
 
         self.train_dataframe = pd.read_csv(trainPath,sep=',',index_col='id')
         self.test_dataframe = pd.read_csv(testPath,sep=',',index_col='id')
         self.train_label = self.train_dataframe['血糖']
         self.train = self.train_dataframe.iloc[:,0:-1]
-        if train==True:
+
+        self.flag = trainable
+        if self.flag==True:
             self.test = self.test_dataframe.iloc[:,0:-1]
             self.test_label = self.test_dataframe['血糖']
         else:
@@ -191,6 +193,132 @@ class dataset(object):
         sex_dict = {"男": [1,0], "女": [0,1]}
         self.train = self.train.replace(sex_dict)
         self.test = self.test.replace(sex_dict)
+
+    def liver_columns(self):
+        columns = ['high_temperature',
+                   'low_temperature',
+                   'diff_temperature',
+                   '性别',
+                   '*天门冬氨酸氨基转换酶',
+                   '*丙氨酸氨基转换酶',
+                   '*碱性磷酸酶',
+                   '*r-谷氨酰基转换酶',
+                   '*总蛋白',
+                   '白蛋白',
+                   '*球蛋白',
+                   '白球比例']
+
+        self.liver_train = self.train[columns].dropna()
+        self.liver_train_label = self.train_label.loc[self.liver_train.index]
+
+        if self.flag == 1:
+            self.liver_test = self.test[columns].dropna()
+            self.liver_test_label = self.test_label.loc[self.liver_test.index]
+        else:
+            self.liver_test = self.test[columns].dropna()
+            self.liver_test_label = pd.DataFrame(index=self.liver_test.index)
+        return self.liver_train,self.liver_train_label,self.liver_test,self.liver_test_label
+
+    def bloodfat_columns(self):
+        columns = ['high_temperature',
+                   'low_temperature',
+                   'diff_temperature',
+                   '性别',
+                   '甘油三酯',
+                   '总胆固醇',
+                   '高密度脂蛋白胆固醇',
+                   '低密度脂蛋白胆固醇']
+
+        self.bloodfat_train = self.train[columns].dropna()
+        self.bloodfat_train_label = self.train_label.loc[self.bloodfat_train.index]
+
+        if self.flag == 1:
+            self.bloodfat_test = self.test[columns].dropna()
+            self.bloodfat_test_label = self.test_label.loc[self.bloodfat_test.index]
+        else:
+            self.bloodfat_test = self.test[columns].dropna()
+            self.bloodfat_test_label = pd.DataFrame(index=self.bloodfat_test.index)
+
+        return self.bloodfat_train, self.bloodfat_train_label, self.bloodfat_test, self.bloodfat_test_label
+
+    def urea_columns(self):
+        columns = ['high_temperature',
+                   'low_temperature',
+                   'diff_temperature',
+                   '性别',
+                   '尿素',
+                   '肌酐',
+                   '尿酸']
+
+        self.urea_train = self.train[columns].dropna()
+        self.urea_train_label = self.train_label.loc[self.urea_train.index]
+
+        if self.flag == 1:
+            self.urea_test = self.test[columns].dropna()
+            self.urea_test_label = self.test_label.loc[self.urea_test.index]
+        else:
+            self.urea_test = self.test[columns].dropna()
+            self.urea_test_label = pd.DataFrame(index=self.urea_test.index)
+
+        return self.urea_train, self.urea_train_label, self.urea_test, self.urea_test_label
+
+    def hepatitis(self):
+        columns = ['high_temperature',
+                   'low_temperature',
+                   'diff_temperature',
+                   '性别',
+                   '乙肝表面抗原',
+                   '乙肝表面抗体',
+                   '乙肝e抗原',
+                   '乙肝e抗体',
+                   '乙肝核心抗体',]
+
+        self.hepatitis_train = self.train[columns].dropna()
+        self.hepatitis_train_label = self.train_label.loc[self.hepatitis_train.index]
+
+        if self.flag == 1:
+            self.hepatitis_test = self.test[columns].dropna()
+            self.hepatitis_test_label = self.test_label.loc[self.hepatitis_test.index]
+        else:
+            self.hepatitis_test = self.test[columns].dropna()
+            self.hepatitis_test_label = pd.DataFrame(index=self.hepatitis_test.index)
+
+        return self.hepatitis_train, self.hepatitis_train_label, self.hepatitis_test, self.hepatitis_test_label
+
+    def bloodnorm(self):
+        columns = ['high_temperature',
+                   'low_temperature',
+                   'diff_temperature',
+                   '性别',
+                   '白细胞计数',
+                   '红细胞计数',
+                   '血红蛋白',
+                   '红细胞压积',
+                   '红细胞平均体积',
+                   '红细胞平均血红蛋白量',
+                   '红细胞平均血红蛋白浓度',
+                   '红细胞体积分布宽度',
+                   '血小板计数',
+                   '血小板平均体积',
+                   '血小板体积分布宽度',
+                   '血小板比积',
+                   '中性粒细胞%',
+                   '淋巴细胞%',
+                   '单核细胞%',
+                   '嗜酸细胞%',
+                   '嗜碱细胞%']
+
+        self.bloodnorm_train = self.train[columns].dropna()
+        self.bloodnorm_train_label = self.train_label.loc[self.bloodnorm_train.index]
+
+        if self.flag == 1:
+            self.bloodnorm_test = self.test[columns].dropna()
+            self.bloodnorm_test_label = self.test_label.loc[self.bloodnorm_test.index]
+        else:
+            self.bloodnorm_test = self.test[columns].dropna()
+            self.bloodnorm_test_label = pd.DataFrame(index=self.bloodnorm_test.index)
+
+        return self.bloodnorm_train, self.bloodnorm_train_label, self.bloodnorm_test, self.bloodnorm_test_label
 
             # ~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # def generate_matrix(self, train):
