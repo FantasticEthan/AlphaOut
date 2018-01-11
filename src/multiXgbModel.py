@@ -14,7 +14,7 @@ def evalerror(preds, dtrain):
 dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/localtest.csv",trainable=1)
 dataset.trans_datetime2weather()
 dataset.del_outlier()
-
+dataset.category_sex()
 name = str("liver")
 train,train_label,test,test_label = dataset.liver_columns()
 # train,train_label,test,test_label= dataset.bloodfat_columns()
@@ -41,7 +41,7 @@ params = {
 
 #------------------------
 #-----迭代次数-------------
-num_boost_round = 1000
+num_boost_round = 2000
 
 model = xgb.train(
     params,

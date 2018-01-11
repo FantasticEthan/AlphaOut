@@ -48,13 +48,13 @@ params = {
 
 #------------------------
 #-----迭代次数-------------
-num_boost_round = 50
+num_boost_round = 2000
 
 model = xgb.train(
     params,
     dtrain,
     num_boost_round=num_boost_round,
-    evals=[(dtest, 'eval'), (dtrain, 'train')],
+    evals=[(dtrain, 'train'),(dtest, 'eval')],
     feval=evalerror,
     early_stopping_rounds=50
 )
@@ -259,7 +259,7 @@ model_best = xgb.train(
     params_best,
     dtrain,
     num_boost_round=num_boost_round,
-    evals=[(dtest, 'eval'), (dtrain, 'train')],
+    evals=[(dtrain, 'train'),(dtest, 'eval')],
     feval=evalerror,
     early_stopping_rounds=50
 )

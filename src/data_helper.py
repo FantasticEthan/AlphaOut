@@ -112,7 +112,7 @@ class dataset(object):
             return train, test
 
         def difffeature(train, test, cols, name=''):
-            dataset = self.train.append(self.test)
+            dataset = train.append(test)
             for f1, f2 in list(combinations(cols, 2)):
                 if self.filter_feature == True:
                     if f1 + '-' + f2 + name not in self.importance_f:
@@ -127,7 +127,7 @@ class dataset(object):
             return train, test
 
         def addfeature(train, test, cols, w1=1, w2=1, name=''):
-            dataset = self.train.append(self.test)
+            dataset = train.append(test)
             for f1, f2 in list(combinations(cols, 2)):
                 if self.filter_feature == True:
                     if f1 + '+' + f2 + name not in self.importance_f:
@@ -142,7 +142,7 @@ class dataset(object):
             return train, test
 
         def divifeature(train, test, cols):
-            dataset = self.train.append(self.test)
+            dataset = train.append(test)
             for f1, f2 in list(combinations(cols, 2)):
                 if self.filter_feature == True:
                     if f1 + '/' + f2 not in self.importance_f:

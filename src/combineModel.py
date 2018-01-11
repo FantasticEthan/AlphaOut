@@ -12,9 +12,10 @@ urea_modelpath = "../model/combine/urea.model"
 hepatitis_modelpath = "../model/combine/hepatitis.model"
 bloodnorm_modelpath = "../model/combine/bloodnorm.model"
 
-dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/localtest.csv",trainable=1)
+dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/onlinetest.csv",trainable=0)
 dataset.trans_datetime2weather()
 dataset.del_outlier()
+dataset.category_sex()
 
 liver_train,liver_train_label, liver_test, liver_test_label = dataset.liver_columns()
 bloodfat_train,bloodfat_train_label,bloodfat_test,bloodfat_test_label= dataset.bloodfat_columns()
@@ -106,9 +107,9 @@ label_e_test = pd.DataFrame(index=bloodnorm_test_label.index)
 df_combine_test = combine_model(liver_test,bloodfat_test,urea_test,hepatitis_test,bloodnorm_test,
                            label_a_test,label_b_test,label_c_test,label_d_test,label_e_test)
 
-df_combine_test = (df_combine_test.join(dataset.test_label))
+# df_combine_test = (df_combine_test.join(dataset.test_label))
 
-df_combine_test.to_csv("../tmp/combineModel_test.csv")
+df_combine_test.to_csv("../tmp/combineModel_onlinetest.csv")
 # print(liver_test_label)
 # liver_test_label.plot()
 # plt.show()
