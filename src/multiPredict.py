@@ -1,84 +1,50 @@
+# -*- coding: utf-8 -*-
+import os
 import xgboost as xgb
 import pandas as pd
-import numpy as np
 import data_helper
-import operator
 import matplotlib.pyplot as plt
+from operator import itemgetter
+from sklearn.externals import joblib
 
-modelpath = "../model/combine/"
-liver_modelpath = "../model/combine/liver.model"
-bloodfat_modelpath = "../model/combine/bloodfat.model"
-urea_modelpath = "../model/combine/urea.model"
-hepatitis_modelpath = "../model/combine/hepatitis.model"
-bloodnorm_modelpath = "../model/combine/bloodnorm.model"
 
-dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/onlinetest.csv",trainable=False)
+xgbmodelpath = "../model/23_check_initial/xgb.model"
+dartmodelpath = "../model/23_check_initial/dart.model"
+rfmodelpath = "../model/23_check_initial/rf.pkl"
+
+dataset = data_helper.dataset("../tmp/train.csv","../tmp/onlinetest.csv",test = 1)
 dataset.trans_datetime2weather()
-dataset.del_outlier()
+dataset.fill_nan()
+dataset.generate_arithmetic()
+dataset.category_sex()
 
-_, _, liver_test, liver_test_label = dataset.liver_columns()
-_,_,bloodfat_test,bloodfat_test_label= dataset.bloodfat_columns()
-_,_,urea_test,urea_test_label= dataset.urea_columns()
-_,_,hepatitis_test,hepatitis_test_label= dataset.hepatitis()
-_,_,bloodnorm_test,bloodnorm_test_label= dataset.bloodnorm()
-typename = ['liver','bloodfat','urea','hepatitis','bloodnorm']
+X_train,y_train = dataset.train.values,dataset.train_label.values
+X_test= dataset.test.values
 
-#1 predict liver
-data_matrix = xgb.DMatrix(liver_test)
-print("predict...")
+data_matrix = xgb.DMatrix(X_test)
+
+print("predict  xgb ...")
 bst = xgb.Booster()
-bst.load_model(liver_modelpath)
-ypred = bst.predict(data_matrix)
-liver_test_label['liver'] = ypred
-print(liver_test_label.describe())
-del bst
+bst.load_model(xgbmodelpath)
+xgb_pred = bst.predict(data_matrix)
 
-#2 predict bloodfat
-data_matrix = xgb.DMatrix(bloodfat_test)
-print("predict...")
+print("predict  dart ...")
 bst = xgb.Booster()
-bst.load_model(bloodfat_modelpath)
-ypred = bst.predict(data_matrix)
-bloodfat_test_label['bloodfat'] = ypred
-print(bloodfat_test_label.describe())
-del bst
+bst.load_model(dartmodelpath)
+dart_pred = bst.predict(data_matrix)
 
-#3 predict urea
-data_matrix = xgb.DMatrix(urea_test)
-print("predict...")
-bst = xgb.Booster()
-bst.load_model(urea_modelpath)
-ypred = bst.predict(data_matrix)
-urea_test_label['urea'] = ypred
-print(urea_test_label.describe())
-del bst
+print("predict  rf ...")
+clf = joblib.load(rfmodelpath)
+rf_pred = clf.predict(X_test)
 
-#4 predict hepatitis
-data_matrix = xgb.DMatrix(hepatitis_test)
-print("predict...")
-bst = xgb.Booster()
-bst.load_model(hepatitis_modelpath)
-ypred = bst.predict(data_matrix)
-hepatitis_test_label['hepatitis'] = ypred
-print(hepatitis_test_label.describe())
-del bst
 
-#5 predict bloodnorm
-data_matrix = xgb.DMatrix(bloodnorm_test)
-print("predict...")
-bst = xgb.Booster()
-bst.load_model(bloodnorm_modelpath)
-ypred = bst.predict(data_matrix)
-bloodnorm_test_label['bloodnorm'] = ypred
-print(bloodnorm_test_label.describe())
-del bst
+multi_pred = (xgb_pred*0.4+dart_pred*0.25+rf_pred*0.35)
 
-df_label = pd.concat([liver_test_label,bloodfat_test_label,
-                      urea_test_label,hepatitis_test_label,
-                      bloodnorm_test_label],axis=1)
-print(df_label)
+dfpred = pd.DataFrame(multi_pred,columns=["血糖"])
+print(dfpred.describe())
+dfpred.plot()
+plt.show()
+dfpred.to_csv("submission_23_end.csv",header=None,index=None)
 
-# print(liver_test_label)
-# liver_test_label.plot()
-# plt.show()
-# liver_test_label.to_csv("submission.csv",header=None,index=None)
+
+

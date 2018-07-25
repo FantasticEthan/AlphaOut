@@ -2,12 +2,12 @@ import pandas as pd
 from dataAnalysis import load_dataset
 from sklearn.cross_validation import train_test_split
 
-filepath = "../data/d_test_A_20180102.csv"
+filepath = "../data/d_train_20180102.csv"
 tmppath  = "../tmp/"
 data = load_dataset(filepath)
 
-# data.to_csv(tmppath+'onlinetest.csv')
-# exit()
+data.to_csv(tmppath+'train.csv')
+exit()
 datalength= len(data)
 df_male = data[data["性别"]=="男"]
 df_female = data[data["性别"]=="女"]

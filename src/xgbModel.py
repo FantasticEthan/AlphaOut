@@ -6,8 +6,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,log_loss
 import xgboost as xgb
 
-from xgboost import XGBClassifier
-# from collections import Counter
 
 def evalerror(preds, dtrain):
     labels = dtrain.get_label()
@@ -15,37 +13,50 @@ def evalerror(preds, dtrain):
     # return 'error', float(sum(labels != (preds > 0.0))) / len(labels)
     return 'mse', error
 
-
-dataset = data_helper.dataset("../tmp/train_all.csv","../tmp/localtest.csv",train=1)
+dataset = data_helper.dataset("../tmp/train.csv","../tmp/localtest.csv")
 dataset.trans_datetime2weather()
-dataset.del_outlier()
+#dataset.del_outlier()
 dataset.fill_nan()
 dataset.generate_arithmetic()
 dataset.category_sex()
 
-# train = dataset.train.values
-# test = dataset.test.values
-
 X_train,y_train = dataset.train.values,dataset.train_label.values
 X_test,y_test = dataset.test.values,dataset.test_label.values
 #split test and train
+
 dtrain = xgb.DMatrix(X_train, label=y_train)
 dtest = xgb.DMatrix(X_test, label=y_test)
 
 #train part
 params = {
     # Parameters that we are going to tune.
-    'max_depth': 11,
-    'min_child_weight': 7,
-    'eta': 0.3,
-    'subsample': 0.8,
-    'colsample_bytree': 0.9,
-    'lambda':1,
+    'max_depth': 6,
+    'min_child_weight': 8,
+    'eta': 0.005,
+    'subsample': 0.4,
+    'colsample_bytree': 0.7,
+    'lambda':0,
     # Other parameters
     'silent':1,
     'objective':'reg:linear',
+    'gpu_id': 0,
+    'max_bin':16,
+    'tree_method':'gpu_hist'
 }
 
+#通过cv找最佳的nround
+cv_log = xgb.cv(params,
+                dtrain,
+                num_boost_round=2000,
+                nfold=5,
+                feval=evalerror,
+                early_stopping_rounds=50,
+                seed=24)
+
+bst_rmse= cv_log['test-rmse-mean'].min()
+cv_log['nb'] = cv_log.index
+cv_log.index = cv_log['test-rmse-mean']
+bst_nb = cv_log.nb.to_dict()[bst_rmse]
 #------------------------
 #-----迭代次数-------------
 num_boost_round = 2000
@@ -53,8 +64,8 @@ num_boost_round = 2000
 model = xgb.train(
     params,
     dtrain,
-    num_boost_round=num_boost_round,
-    evals=[(dtrain, 'train'),(dtest, 'eval')],
+    num_boost_round=bst_nb+50,
+    evals=[ (dtrain, 'train'),(dtest, 'eval')],
     feval=evalerror,
     early_stopping_rounds=50
 )
@@ -63,12 +74,22 @@ print("Best mse: {:.2f} with {} rounds".format(
     model.best_score,
     model.best_iteration + 1))
 
+model.save_model("../model/"+'23_check_initial/'+'xgb'+".model")
+
+
+exit()
+
+
+
+
+
+
 #交叉验证
 cv_results = xgb.cv(
     params,
     dtrain,
     num_boost_round=num_boost_round,
-    seed=42,
+    seed=9,
     nfold=5,
     feval=evalerror,
     early_stopping_rounds=10
@@ -81,8 +102,8 @@ select_params = []
 #树结构 调参过程
 gridsearch_params = [
     (max_depth, min_child_weight)
-    for max_depth in range(3, 12)
-    for min_child_weight in range(1, 10)
+    for max_depth in range(3, 7)
+    for min_child_weight in range(1, 8)
     ]
 
 # Define initial best params and MAE
@@ -103,7 +124,7 @@ for max_depth, min_child_weight in gridsearch_params:
         params,
         dtrain,
         num_boost_round=num_boost_round,
-        seed=42,
+        seed=9,
         nfold=5,
         feval=evalerror,
         early_stopping_rounds=10
@@ -116,8 +137,10 @@ for max_depth, min_child_weight in gridsearch_params:
         min_mse = mean_mse
         best_params = (max_depth, min_child_weight)
 
-print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
 
+print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
+params['max_depth'] = best_params[0]
+params['min_child_weight'] = best_params[1]
 select_params.append(best_params)
 #subsample colsample 调参过程
 #——————————————————————————————————————————————
@@ -144,7 +167,7 @@ for subsample, colsample in reversed(gridsearch_params):
         params,
         dtrain,
         num_boost_round=num_boost_round,
-        seed=42,
+        seed=9,
         nfold=5,
         feval=evalerror,
         early_stopping_rounds=10
@@ -159,7 +182,8 @@ for subsample, colsample in reversed(gridsearch_params):
         best_params = (subsample, colsample)
 
 print("Best params: {}, {}, mse: {}".format(best_params[0], best_params[1], min_mse))
-
+params['subsample'] = best_params[0]
+params['colsample_bytree'] = best_params[1]
 select_params.append(best_params)
 
 #lambda 调参过程
@@ -180,7 +204,7 @@ for reg_lambda in range(1,20):
         params,
         dtrain,
         num_boost_round=num_boost_round,
-        seed=42,
+        seed=9,
         nfold=5,
         feval=evalerror,
         early_stopping_rounds=10
@@ -195,7 +219,7 @@ for reg_lambda in range(1,20):
         best_params = reg_lambda
 
 print("Best params: {}, mse: {}".format(best_params, min_mse))
-
+params['lambda'] = best_params
 select_params.append(best_params)
 
 print(select_params)
@@ -218,7 +242,7 @@ for eta in [.3, .2, .1, .05, .01, .005]:
         params,
         dtrain,
         num_boost_round=num_boost_round,
-        seed=42,
+        seed=9,
         nfold=5,
         feval=evalerror,
         early_stopping_rounds=10
@@ -233,7 +257,7 @@ for eta in [.3, .2, .1, .05, .01, .005]:
         best_params = eta
 
 print("Best params: {}, mse: {}".format(best_params, min_mse))
-
+params['eta'] = best_params
 select_params.append(best_params)
 
 print(select_params)
@@ -259,9 +283,17 @@ model_best = xgb.train(
     params_best,
     dtrain,
     num_boost_round=num_boost_round,
-    evals=[(dtrain, 'train'),(dtest, 'eval')],
+    evals=[(dtest, 'eval'), (dtrain, 'train')],
     feval=evalerror,
     early_stopping_rounds=50
 )
 
 model_best.save_model("../model/"+str(select_params)+".model")
+
+
+
+
+
+
+
+
