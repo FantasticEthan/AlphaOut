@@ -74,10 +74,10 @@ print("Best mse: {:.2f} with {} rounds".format(
     model.best_score,
     model.best_iteration + 1))
 
-model.save_model("../model/"+'23_check_initial/'+'xgb'+".model")
-
-
-exit()
+# model.save_model("../model/"+'23_check_initial/'+'xgb'+".model")
+#
+#
+# exit()
 
 
 

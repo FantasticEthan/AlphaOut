@@ -2,29 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5776202-d66a-4e57-a9db-922f63239e97" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/[(3, 5), (0.9, 0.7), 16,0.05].model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/[(3, 9), (1.0, 0.9), 17, 0.01].model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/[(4, 7), (0.8, 0.7), 0.01].model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/[(4, 7), (0.8, 0.7), 0.3].model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/[(4, 7), (1.0, 1.0), 0.01].model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/combine/bloodfat.model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/combine/bloodnorm.model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/combine/hepatitis.model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/combine/liver.model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/model/combine/urea.model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/dropOutlier.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_r-谷氨酰基转换酶---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_丙氨酸氨基转换酶---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_天门冬氨酸氨基转换酶---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_总蛋白---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_球蛋白---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/_碱性磷酸酶---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/中性粒细胞%---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/乙肝e抗体---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/乙肝e抗原---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/乙肝核心抗体---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/乙肝表面抗体---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/乙肝表面抗原---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/低密度脂蛋白胆固醇---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/单核细胞%---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/嗜碱细胞%---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/嗜酸细胞%---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/尿素---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/尿酸---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/年龄---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/总胆固醇---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/淋巴细胞%---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/甘油三酯---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/白球比例---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/白细胞计数---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/白蛋白---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞体积分布宽度---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞压积---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞平均体积---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞平均血红蛋白浓度---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞平均血红蛋白量---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/红细胞计数---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/肌酐---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血小板体积分布宽度---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血小板平均体积---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血小板比积---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血小板计数---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血糖---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/血红蛋白---histgram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/高密度脂蛋白胆固醇---histgram.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/d_train_20180102.csv" afterPath="$PROJECT_DIR$/data/d_train_20180102.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data_helper.py" afterPath="$PROJECT_DIR$/src/data_helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/predict.py" afterPath="$PROJECT_DIR$/src/predict.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/splitDataset.py" afterPath="$PROJECT_DIR$/src/splitDataset.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/submission.csv" afterPath="$PROJECT_DIR$/src/submission.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rfModel.py" afterPath="$PROJECT_DIR$/src/rfModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/xgbModel.py" afterPath="$PROJECT_DIR$/src/xgbModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/dev.csv" afterPath="$PROJECT_DIR$/tmp/dev.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/localtest.csv" afterPath="$PROJECT_DIR$/tmp/localtest.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/train.csv" afterPath="$PROJECT_DIR$/tmp/train.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/train_all.csv" afterPath="$PROJECT_DIR$/tmp/train_all.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/xgb.fmap" afterPath="$PROJECT_DIR$/tmp/xgb.fmap" />
     </list>
     <ignored path="AlphaOut.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,67 +82,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="lgbModel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lgbModel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="57" column="2" selection-start-line="57" selection-start-column="2" selection-end-line="57" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="d_xgb.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/d_xgb.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dp_dart.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_dart.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1159">
-              <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-              <folding>
-                <element signature="e#15#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dp_rf.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_rf.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dp_xgb.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_xgb.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-463">
-              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="multiPredict.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="multiPredict.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/multiPredict.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+            <state relative-caret-position="304">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -131,19 +95,21 @@
       <file leaf-file-name="data_helper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6118">
-              <caret line="325" column="16" selection-start-line="325" selection-start-column="8" selection-end-line="325" selection-end-column="16" />
+            <state relative-caret-position="2184">
+              <caret line="375" column="16" selection-start-line="375" selection-start-column="16" selection-end-line="375" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="multiXgbModel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/multiXgbModel.py">
+      <file leaf-file-name="dartModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dartModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="639">
-              <caret line="75" column="14" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="494">
+              <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,9 +117,23 @@
       <file leaf-file-name="xgbModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/xgbModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1919">
-              <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="114" selection-end-column="51" />
-              <folding />
+            <state relative-caret-position="5510">
+              <caret line="290" column="37" selection-start-line="290" selection-start-column="37" selection-end-line="290" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rfModel.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/rfModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="569">
+              <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -163,7 +143,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
               <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1516272488000" expanded="true" signature="1273:1324" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -192,18 +174,19 @@
         <option value="$PROJECT_DIR$/src/dateFeature.py" />
         <option value="$PROJECT_DIR$/src/dropOutlier.py" />
         <option value="$PROJECT_DIR$/model(2).py" />
-        <option value="$PROJECT_DIR$/src/multiPredict.py" />
         <option value="$PROJECT_DIR$/src/multiXgbModel.py" />
         <option value="$PROJECT_DIR$/src/combineModel.py" />
         <option value="$PROJECT_DIR$/src/combineModelRegression.py" />
         <option value="$PROJECT_DIR$/src/createData.py" />
         <option value="$PROJECT_DIR$/src/data_helper.py" />
         <option value="$PROJECT_DIR$/src/analysisTest.py" />
-        <option value="$PROJECT_DIR$/src/xgbModel.py" />
         <option value="$PROJECT_DIR$/src/predict.py" />
         <option value="$PROJECT_DIR$/src/submission.csv" />
         <option value="$PROJECT_DIR$/src/splitDataset.py" />
         <option value="$PROJECT_DIR$/src/lgbModel.py" />
+        <option value="$PROJECT_DIR$/src/multiPredict.py" />
+        <option value="$PROJECT_DIR$/src/xgbModel.py" />
+        <option value="$PROJECT_DIR$/src/rfModel.py" />
       </list>
     </option>
   </component>
@@ -216,7 +199,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="797" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -275,20 +258,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AlphaOut" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AlphaOut" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TianChi-Industry4.0-Competition-master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -298,7 +267,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/AlphaOut_22" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RecentsManager">
@@ -654,10 +623,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="784" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1788269" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18097281" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.49713877" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -697,25 +666,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="22" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/utils/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3211">
-          <caret line="180" column="27" selection-start-line="180" selection-start-column="27" selection-end-line="180" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/d_sample_20180102.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/weather/getWeather.py" />
     <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/pandas/core/frame.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -864,13 +819,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/pandas/indexes/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="2133" column="0" selection-start-line="2133" selection-start-column="0" selection-end-line="2133" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/pandas/indexes/base.py" />
     <entry file="file://$PROJECT_DIR$/tmp/onlinetest.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -924,7 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -946,23 +894,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/xgbModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1919">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="114" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6118">
-          <caret line="325" column="16" selection-start-line="325" selection-start-column="8" selection-end-line="325" selection-end-column="16" />
-          <folding />
+          <folding>
+            <marker date="1516272488000" expanded="true" signature="1273:1324" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -970,51 +904,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
           <caret line="57" column="2" selection-start-line="57" selection-start-column="2" selection-end-line="57" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/d_xgb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_dart.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1159">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-          <folding>
-            <element signature="e#15#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_rf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_xgb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-463">
-          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/d_xgb.py" />
+    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_dart.py" />
+    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_rf.py" />
+    <entry file="file://$PROJECT_DIR$/TianChi-Industry4.0-Competition-master/regression/new_testset/dp_xgb.py" />
     <entry file="file://$PROJECT_DIR$/src/multiXgbModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="639">
+        <state relative-caret-position="1349">
           <caret line="75" column="14" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="14" />
           <folding />
         </state>
@@ -1022,9 +922,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/multiPredict.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+        <state relative-caret-position="304">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dartModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2184">
+          <caret line="375" column="16" selection-start-line="375" selection-start-column="16" selection-end-line="375" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/xgbModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5510">
+          <caret line="290" column="37" selection-start-line="290" selection-start-column="37" selection-end-line="290" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rfModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

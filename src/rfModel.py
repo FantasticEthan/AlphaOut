@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import data_helper
 from sklearn.externals import joblib
+from sklearn.cross_validation import cross_val_score
 
 dataset = data_helper.dataset("../tmp/train.csv","../tmp/localtest.csv")
 dataset.trans_datetime2weather()
